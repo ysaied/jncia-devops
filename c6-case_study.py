@@ -2,6 +2,7 @@
 from jnpr.junos import Device
 from pprint import pprint
 from lxml import etree
+from jnpr.junos.utils.config import Config
 
 
 dev_mgmt = { "KIF_VPN" : "10.117.97.56", 
@@ -26,7 +27,7 @@ original_rpc = """
 </get-config>
 """
 
-pyez_getconf_filter = """
+getconf_filter_string = """
 <configuration>
   <system>
     <name-server/>
@@ -34,7 +35,19 @@ pyez_getconf_filter = """
 </configuration>
 """
 
-xml_filter = etree.XML(pyez_getconf_filter)
+xml_filter = etree.XML(pyez_getconf_string)
+
+setconf_dns = """
+<system>
+  <name-server>
+    <name>8.8.8.8</name>
+  </name-server>
+  <name-server>
+    <name>8.8.4.4</name>
+  </name-server>
+</system>
+"""
+
 
 for src_node, mgmt_ip in dev_mgmt.items():
    dev = Device(host= mgmt_ip, user= login_username)
@@ -42,10 +55,15 @@ for src_node, mgmt_ip in dev_mgmt.items():
    print ( "="*20 + src_node + "="*20)
 
    show_dns_conf = dev.rpc.get_config(filter_xml=xml_filter)
-   print (etree.tostring(show_dns_conf))
    
    if ( show_dns_conf.find('system/name-server') is None ):
       print ("NO DNS Configured!")
+      
+      conf = Config(dev)
+      conf.lock()
+      conf.load(config)
+      conf.commit()
+      conf.unlock()
 
    print ("="*20 + "="*len(src_node)  + "="*20)
    dev.close()
