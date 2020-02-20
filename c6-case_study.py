@@ -55,7 +55,7 @@ for src_node, mgmt_ip in dev_mgmt.items():
    print ( "="*20 + src_node + "="*20)
 
    show_dns_conf = dev.rpc.get_config(filter_xml=xml_filter)
-   show_dns_conf_text = dev.rpc.get_config(filter_xml=xml_filter, format="text")
+   show_dns_conf_text = dev.rpc.get_config(filter_xml=xml_filter, options={'format':'text'})
    
    if ( show_dns_conf.find('system/name-server') is None ):
       print ("NO DNS configured, DNS configuration to be pushed!")
