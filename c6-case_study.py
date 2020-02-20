@@ -66,7 +66,7 @@ for src_node, mgmt_ip in dev_mgmt.items():
       print ("DNS configuration pushed successfully!")
    else:
       print ("DNS configuration found as below:")
-      print (etree.tostring(show_dns_conf))
+      print (etree.tostring(show_dns_conf, encoding='unicode', pretty_print=True))
 
    print ("="*20 + "="*len(src_node)  + "="*20)
    dev.close()
