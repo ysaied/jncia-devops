@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from jnpr.junos import Device
-form pprint import pprint
+from pprint import pprint
 
 
 dev_mgmt = { "KIF_VPN" : "10.117.97.56", 
