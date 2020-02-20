@@ -42,7 +42,7 @@ for src_node, mgmt_ip in dev_mgmt.items():
    print ( "="*20 + src_node + "="*20)
 
    show_dns_conf = dev.rpc.get_config(filter_xml=xml_filter)
-   print (etree.tosting(show_dns_conf))
+   print (etree.tostring(show_dns_conf))
 
    print ("="*20 + "="*len(src_node)  + "="*20)
    dev.close()
