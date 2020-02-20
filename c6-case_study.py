@@ -34,12 +34,14 @@ pyez_getconf_filter = """
 </configuration>
 """
 
+xml_filter = etree.XML(pyez_getconf_filter)
+
 for src_node, mgmt_ip in dev_mgmt.items():
    dev = Device(host= mgmt_ip, user= login_username)
    dev.open()
    print ( "="*20 + src_node + "="*20)
 
-   show_dns_conf = dev.rpc.get_config(filter_xml=pyez_getconf_filter)
+   show_dns_conf = dev.rpc.get_config(filter_xml=xml_filter)
    print (etree.tosting(show_dns_conf))
 
    print ("="*20 + "="*len(src_node)  + "="*20)
