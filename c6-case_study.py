@@ -43,6 +43,9 @@ for src_node, mgmt_ip in dev_mgmt.items():
 
    show_dns_conf = dev.rpc.get_config(filter_xml=xml_filter)
    print (etree.tostring(show_dns_conf))
+   
+   if ( show_dns_conf.find('system/name-server') is None ):
+      print ("NO DNS Configured!")
 
    print ("="*20 + "="*len(src_node)  + "="*20)
    dev.close()
