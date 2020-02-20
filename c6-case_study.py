@@ -61,7 +61,7 @@ for src_node, mgmt_ip in dev_mgmt.items():
       
       conf = Config(dev)
       conf.lock()
-      conf.load(config)
+      conf.load(setconf_dns)
       conf.commit()
       conf.unlock()
 
