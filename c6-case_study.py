@@ -35,7 +35,7 @@ getconf_filter_string = """
 </configuration>
 """
 
-xml_filter = etree.XML(pyez_getconf_string)
+xml_filter = etree.XML(getconf_filter_string)
 
 setconf_dns = """
 <system>
