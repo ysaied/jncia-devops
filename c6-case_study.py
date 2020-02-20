@@ -55,6 +55,7 @@ for src_node, mgmt_ip in dev_mgmt.items():
    print ( "="*20 + src_node + "="*20)
 
    show_dns_conf = dev.rpc.get_config(filter_xml=xml_filter)
+   show_dns_conf_text = dev.rpc.get_config(filter_xml=xml_filter, format="text")
    
    if ( show_dns_conf.find('system/name-server') is None ):
       print ("NO DNS configured, DNS configuration to be pushed!")
@@ -66,7 +67,7 @@ for src_node, mgmt_ip in dev_mgmt.items():
       print ("DNS configuration pushed successfully!")
    else:
       print ("DNS configuration found as below (formal XML):")
-      print (etree.tostring(show_dns_conf, encoding='unicode', pretty_print=True))
+      print (etree.tostring(show_dns_conf_text, encoding='unicode', pretty_print=True))
 
    print ("="*20 + "="*len(src_node)  + "="*20)
    dev.close()
