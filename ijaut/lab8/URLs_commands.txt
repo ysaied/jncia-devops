@@ -1,0 +1,18 @@
+http://172.25.11.1:3000/rpc/get-route-information
+http://172.25.11.1:3000/rpc/get-route-information@format=xml
+http://172.25.11.1:3000/rpc/get-route-information@format=json
+http://172.25.11.1:3000/rpc/get-route-information@format=text
+http://172.25.11.1:3000/rpc/get-route-information@format=text?active-path=
+http://172.25.11.1:3000/rpc/get-route-information@format=text?active-path=&table=inet.0
+
+curl http://172.25.11.1:3000/rpc/get-route-information@format=text?active-path=
+curl -u "lab:lab123" http://172.25.11.1:3000/rpc/get-route-information@format=text?active-path=
+curl -u "lab:lab123" http://172.25.11.1:3000/rpc/get-route-information@format=text?active-path=&table=inet.0
+curl -u "lab:lab123" "http://172.25.11.1:3000/rpc/get-route-information@format=text?active-path=&table=inet.0"
+
+http://172.25.11.1:3000/
+
+/rpc/get-interface-information
+
+<get-route-information><active-path/><table>inet.0</table></get-route-information><get-interface-information/>
+

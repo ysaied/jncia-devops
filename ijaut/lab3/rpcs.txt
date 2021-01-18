@@ -1,0 +1,15 @@
+netconf
+
+<rpc><get-interface-information/></rpc>]]>]]>
+
+<rpc><lock-configuration/></rpc>]]>]]>
+
+<rpc> <load-configuration>
+<configuration> <system> <services> <ftp/> </services> </system> </configuration>
+</load-configuration> </rpc>]]>]]>
+
+<rpc><commit/></rpc>]]>]]>
+
+<rpc><unlock-configuration/></rpc>]]>]]>
+
+<rpc><close-session></close-session></rpc>]]>]]>

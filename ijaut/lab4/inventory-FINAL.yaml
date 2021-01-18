@@ -1,0 +1,8 @@
+---
+inventory:
+ - hostname: vMX-1
+   model: vMX
+   address: 172.25.11.1
+ - hostname: vMX-2
+   model: vMX
+   address: 172.25.11.2

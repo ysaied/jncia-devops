@@ -1,0 +1,65 @@
+---
+- name: IJAUT lab playbook
+  hosts: vmx_devices
+  roles:
+   - Juniper.junos
+  connection: local
+  gather_facts: no
+
+  vars_prompt:
+  - name: USERNAME
+    prompt: User name
+    private: no
+  - name: DEVICE_PASSWORD
+    prompt: Device password
+    private: yes
+
+  tasks:
+  - name: Get Junos device information
+    juniper_junos_facts: 
+      user: "{{ USERNAME }}"
+      passwd: "{{ DEVICE_PASSWORD }}"
+    register: junos_facts
+
+  - name: Print Junos facts
+    debug: 
+      var: junos_facts.facts.version
+
+  - name: Issue Junos RPC
+    juniper_junos_rpc:
+      user: "{{ USERNAME }}"
+      passwd: "{{ DEVICE_PASSWORD }}"
+      rpcs: get-software-information
+    register: rpc_response
+    
+  - name: Print the RPC output
+    debug:
+      var: rpc_response["parsed_output"]["software-information"]["junos-version"]
+
+  - name: Read services configuration
+    juniper_junos_config:
+      user: "{{ USERNAME }}"
+      passwd: "{{ DEVICE_PASSWORD }}"
+      retrieve: committed
+      filter: system/services
+    register: get_conf_response
+
+  - name: Print services configuration
+    debug:
+      var: get_conf_response.config_lines
+
+  - name: Configure login banner
+    juniper_junos_config:
+      user: "{{ USERNAME }}"
+      passwd: "{{ DEVICE_PASSWORD }}"
+      load: set
+      format: set
+      config_mode: exclusive
+      commit: true
+      lines: 
+       - set system login message "\n\nProvisioned by Ansible\n\n"
+    register: set_conf_response
+
+  - name: Print config diff
+    debug:
+      var: set_conf_response.diff_lines

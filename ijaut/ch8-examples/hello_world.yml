@@ -1,0 +1,27 @@
+---
+- name: Hello World!
+  hosts: vMX-1
+  roles:
+   - Juniper.junos
+  connection: local
+  gather_facts: no
+
+  vars_prompt:
+   - name: USERNAME
+     prompt: User name
+     private: no
+   - name: DEVICE_PASSWORD
+     prompt: Device password
+     private: yes
+
+  tasks:
+  - name: Get Junos device information
+    juniper_junos_facts: 
+      user: "{{ USERNAME }}"
+      passwd: "{{ DEVICE_PASSWORD }}"
+    register: junos_facts
+
+  - name: Print Junos facts
+    debug: 
+      msg: "{{ junos_facts }}"
+
